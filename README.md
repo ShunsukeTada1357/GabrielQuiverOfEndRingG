@@ -5,7 +5,7 @@ See <a href="https://arxiv.org/abs/2308.01790">arXiv:2308.01790 </a>for more det
 Note that the picture writes only irreducible morphisms, so there is no information about some relations.
  <!-- Picture -->
   <div title="picture">
-    <img src="Graph.PNG" alt="picture" width="240px" align="right">
+    <img src="Graph.PNG" alt="picture" width="240px" >
     </div>
     <small>
     </small>
