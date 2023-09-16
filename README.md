@@ -4,7 +4,7 @@ See <a href="https://arxiv.org/abs/2308.01790">arXiv:2308.01790 </a>for more det
 <br>
 For a quiver 1→2→3→4→5, we write End(G)'s irreducible morphism, where G is all the direct sums of non-iso interval modules. In this sprcial setting, the Gabriel quiver of End(G) is the same as path algebra of the quiver 1→2→3→4→5 up to opposite.  
 <br>
-Note that the picture below writes only irreducible morphisms of , so there is no information about some relations.
+Note that the picture below writes only irreducible morphisms of End(G), so there is no information about some relations.
  <!-- Picture -->
   <div title="picture">
     <img src="Graph.PNG" alt="picture" width="240px" >
