@@ -54,4 +54,5 @@ VisualizeGquiverOfEnd(Atilda10)
 VisualizeGquiverOfEnd(star4)
 VisualizeGquiverOfEnd(star5)
 VisualizeGquiverOfEnd(star3)
+#png("zig3")#save figure.
 
