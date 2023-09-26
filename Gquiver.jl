@@ -726,6 +726,7 @@ function VisualizeGquiverOfEnd(Poset)
  return graphplot(ARQ, 
  names=[string(i) for i in AllInt ], 
  curvature_scalar=0.0,
+ #size=(2000,2000), #if we want big size graph. 
  nodeshape=:rect,
  markercolor = range(colorant"white", stop=colorant"white", length=n),
  linecolor = :darkgrey,
@@ -733,7 +734,6 @@ function VisualizeGquiverOfEnd(Poset)
 end
 #________________
 #end
-
 
 
 end #module end
