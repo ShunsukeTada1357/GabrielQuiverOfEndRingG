@@ -1,6 +1,9 @@
 # GabrielQuiverOfEndRingG
-This is a code for visualizing Gabriel quiver of END(G), where G is all the direct sum of the non-iso interval modules. This code is the implementation of Proposition 6.8. of the paper  "EXACT STRUCTURES FOR PERSISTECE MODULES" by B. Blanchette, T. BrüStle, and E.J.Hanson.
-See <a href="https://arxiv.org/abs/2308.01790">arXiv:2308.01790 </a>for more details.
+
+This code is the implementation of Proposition 4.11 of the paper
+#"STABILIZATION OF THE SPREAD-GLOBAL DIMENSION" by BENJAMIN BLANCHETTE, JUSTIN DESROCHERS, ERIC J. HANSON, AND LUIS SCOCCOLA
+#see also "EXACT STRUCTURES FOR PERSISTECE MODULES" by B. Blanchette, T. BrüStle, and E.J.Hanson.   
+See <a href="https://arxiv.org/abs/2506.01828(https://arxiv.org/pdf/2506.01828)">arXiv:2506.01828 </a> for more details. 
 <br>
 　For a quiver 1→2→3→4→5, we write End(G)'s irreducible morphism. In this special setting, the Gabriel quiver of End(G) is the same as path algebra of the quiver 1→2→3→4→5 up to opposite.  
 <br>
