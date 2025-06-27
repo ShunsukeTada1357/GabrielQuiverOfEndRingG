@@ -3,13 +3,10 @@
 ## i.e., if  there is a path from i to j on the graph, then the (i,j) component of the "Poset Matrix" is 1, otherwise 0.
 ## For example if the graph is 1→2→3, then
 #poset=[1 1 1;0 1 1; 0 0 1 ]    
-using GraphRecipes
 using Plots,PyPlot
-using PyCall
+using GraphRecipes
 using Combinatorics
-using LightGraphs, GraphPlot, LinearAlgebra
-using AbstractAlgebra, Nemo
-import Base.Iterators: flatten
+using LinearAlgebra
 using .GabrieQuiverOfEndG: VisualizeGquiverOfEnd
 
 
