@@ -1,37 +1,17 @@
-#This is a code to visualize Gabriel quiver of the endomorphism ring END(G), where G is all the direct sum of the non-iso interval modules. 
-# This code is an implementation of Proposition 4.11 of the paper
+#This is a code to visualize Gabriel quiver of the automorphism ring END(G), where G is all the direct sum of the non-iso interval modules. 
+# This code is the implementation of Proposition 4.11 of the paper
 #"STABILIZATION OF THE SPREAD-GLOBAL DIMENSION" by BENJAMIN BLANCHETTE, JUSTIN DESROCHERS, ERIC J. HANSON, AND LUIS SCOCCOLA
 #see also "EXACT STRUCTURES FOR PERSISTECE MODULES" by B. Blanchette, T. BrüStle, and E.J.Hanson.   
 
-module GabrieQuiverOfEndG
 
-#_______________________________
-#poset mat to posetmat with zero diagonal   
-function FullPosetToHasse(Poset)
-    n = size(Poset, 1)
-    Idd = Matrix(I, n, n)
-    return Poset - Idd
-end
-#_______________________________
-#有向グラフの隣接行列
-function PosetToAdjMat(Poset)
-    n = size(Poset, 1)
-    rad = FullPosetToHasse(Poset)
-    radsq = rad * rad
-    Adj = Matrix(I, n, n)
-    for i in 1:n
-        for j in 1:n
-            if radsq[i, j] == 0 && rad[i, j] != 0
-                Adj[i, j] = 1
-            else
-                Adj[i, j] = 0
-            end
-        end
-    end
-    return Adj
-end
 
-#_______________________________
+module Gquiver #
+
+using Plots,PyPlot
+using GraphRecipes
+using Combinatorics
+using LinearAlgebra
+
 function MakeConvexhullofSub(Poset,Sub)
     n =length(Poset[1,:])
     vec=[0 for i in 1:n ]   
@@ -55,28 +35,30 @@ function CheckGraphConvex(Poset,Subset)
         return false 
     end       
 end
-#_______________________________
+
 function CheckGraphConnectedness(AdjMat)
-    AdjMatTrans = transpose(AdjMat)              # 転置行列（逆方向のエッジ）
-    n = size(AdjMat, 1)                           # ノード数
-    visited = zeros(Int, n)                       # 訪問済みノードのフラグ
-    visit_queue = [1]                             # 探索の開始ノード（1番）
+    AdjMatTrans = transpose(AdjMat)              
+    n = size(AdjMat, 1)                           
+    visited = zeros(Int, n)                       
+    visit_queue = [1]                             
 
     while !isempty(visit_queue)
-        cur_i = popfirst!(visit_queue)            # キューの先頭を取り出す
-        visited[cur_i] = 1                        # 現在のノードを訪問済みに
-        neighbors_i = AdjMat[:,cur_i] + AdjMatTrans[:,cur_i]  # 順方向 + 逆方向のエッジ
+        cur_i = popfirst!(visit_queue)            
+        visited[cur_i] = 1                        
+        neighbors_i = AdjMat[:,cur_i] + AdjMatTrans[:,cur_i]  
 
         for j in 1:n
             if neighbors_i[j] > 0 && visited[j] == 0
-                push!(visit_queue, j)             # 未訪問の隣接ノードを追加
+                push!(visit_queue, j)             
             end
         end
     end
 
-    return all(visited .== 1)                     # 全ノードが訪問されたか
+    return all(visited .== 1)                     
 end
-#_______________________________
+
+
+
 function UpSet(PosetMat, Subset)
     n = size(PosetMat, 1)
     M = PosetMat^n
@@ -162,6 +144,34 @@ function IntInjectiveIrrTest(Poset, Interval)
 
     return Want
 end
+        #_______________________________
+#poset mat to posetmat with zero diagonal   
+function FullPosetToHasse(Poset)
+    n = size(Poset, 1)
+    Idd = Matrix(I, n, n)
+    return Poset - Idd
+end
+#_______________________________
+#有向グラフの隣接行列
+function PosetToAdjMat(Poset)
+    n = size(Poset, 1)
+    rad = FullPosetToHasse(Poset)
+    radsq = rad * rad
+    Adj = Matrix(I, n, n)
+    for i in 1:n
+        for j in 1:n
+            if radsq[i, j] == 0 && rad[i, j] != 0
+                Adj[i, j] = 1
+            else
+                Adj[i, j] = 0
+            end
+        end
+    end
+    return Adj
+end
+
+#_______________________________
+
 
 #________________
 
@@ -251,10 +261,10 @@ function VisualizeGquiverOfEnd(Poset)
  curvature_scalar=0.0,
  size=(2000,2000),
  nodeshape=:rect,
- markercolor = range(colorant"white", stop=colorant"white", length=n),
  linecolor = :darkgrey,
- fontsize = 15)
+ fontsize = 15,
+ markercolor = fill(colorant"white", n)
+  )
 end
-#________________
 
-end #module end
+end # module Gquiver
