@@ -1,6 +1,5 @@
-#This is a code to visualize Gabriel quiver of END(G), where G is all the direct sum
-#of the non-iso interval modules. 
-# This code is the implementation of Proposition 4.11 of the paper
+#This is a code to visualize Gabriel quiver of the endomorphism ring END(G), where G is all the direct sum of the non-iso interval modules. 
+# This code is an implementation of Proposition 4.11 of the paper
 #"STABILIZATION OF THE SPREAD-GLOBAL DIMENSION" by BENJAMIN BLANCHETTE, JUSTIN DESROCHERS, ERIC J. HANSON, AND LUIS SCOCCOLA
 #see also "EXACT STRUCTURES FOR PERSISTECE MODULES" by B. Blanchette, T. BrüStle, and E.J.Hanson.   
 
@@ -56,8 +55,28 @@ function CheckGraphConvex(Poset,Subset)
         return false 
     end       
 end
+#_______________________________
+function CheckGraphConnectedness(AdjMat)
+    AdjMatTrans = transpose(AdjMat)              # 転置行列（逆方向のエッジ）
+    n = size(AdjMat, 1)                           # ノード数
+    visited = zeros(Int, n)                       # 訪問済みノードのフラグ
+    visit_queue = [1]                             # 探索の開始ノード（1番）
 
+    while !isempty(visit_queue)
+        cur_i = popfirst!(visit_queue)            # キューの先頭を取り出す
+        visited[cur_i] = 1                        # 現在のノードを訪問済みに
+        neighbors_i = AdjMat[:,cur_i] + AdjMatTrans[:,cur_i]  # 順方向 + 逆方向のエッジ
 
+        for j in 1:n
+            if neighbors_i[j] > 0 && visited[j] == 0
+                push!(visit_queue, j)             # 未訪問の隣接ノードを追加
+            end
+        end
+    end
+
+    return all(visited .== 1)                     # 全ノードが訪問されたか
+end
+#_______________________________
 function UpSet(PosetMat, Subset)
     n = size(PosetMat, 1)
     M = PosetMat^n
