@@ -1,65 +1,125 @@
-##This is a test code for the function VisualizeGquiverOfEnd
-## input is "Poset Matrix", 
-## i.e., if  there is a path from i to j on the graph, then the (i,j) component of the "Poset Matrix" is 1, otherwise 0.
-## For example if the graph is 1→2→3, then
-#poset=[1 1 1;0 1 1; 0 0 1 ]    
+###############################################################################
+# Test script for `VisualizeGquiverOfEnd`
+#
+# Input:
+#   A "poset matrix" P (transitive closure), i.e.
+#     P[i, j] = 1  ⇔  there exists a directed path i → ... → j in the Hasse graph,
+#     P[i, j] = 0  otherwise.
+#   (In particular, P has 1's on the diagonal.)
+#
+# Example:
+#   If the underlying graph is 1 → 2 → 3, then the transitive-closure matrix is
+#     P = [1 1 1;
+#          0 1 1;
+#          0 0 1]
+###############################################################################
+
 include("Gquiver.jl")
 using .Gquiver
 
+###############################################################################
+# Example 1: Total order on 5 elements (A5)
+###############################################################################
+A5 = [1 1 1 1 1;
+      0 1 1 1 1;
+      0 0 1 1 1;
+      0 0 0 1 1;
+      0 0 0 0 1]
 
-Pos = [1 0 0; 1 1 1; 0 0 1 ]
-Atype=[1 1 1; 0 1 1; 0 0 1]
-A4=[1 1 1 1 ; 0 1 1 1 ; 0 0 1 1; 0 0 0 1]
-C12=[1 1 1 1 1; 0 1 1 0 0 ; 0 0 1 0 0 ; 0 0 1 1 1; 0 0 1 0 1]
-A5=[1 1 1 1 1; 0 1 1 1 1; 0 0 1 1 1; 0 0 0 1 1; 0 0 0 0 1]
-ComGrid=
-[1 1 1 1 1 1
-0 1 1 0 1 1 
-0 0 1 0 0 1
-0 0 0 1 1 1 
-0 0 0 0 1 1 
-0 0 0 0 0 1]
-ComGrid25=[  1 1 1 1 1 1 1 1 1 1 
-  0 1 1 1 1 0 1 1 1 1 
- 0 0 1 1 1 0 0 1 1 1 
- 0 0 0 1 1 0 0 0 1 1 
- 0 0 0 0 1 0 0 0 0 1  
-0 0 0 0 0 1 1 1 1 1  
-0 0 0 0 0 0 1 1 1 1 
-0 0 0 0 0 0 0 1 1 1  
-0 0 0 0 0 0 0 0 1 1 
-0 0 0 0 0 0 0 0 0 1 ]
-
-
-
-
-Atilda4=[1 1 0 1; 0 1 0 0; 0 1 1 1; 0 0 0 1]
-zig3=[1 0 0; 1 1 1 ; 0 0 1]
-Atilda6=[1 1 0 0 0 1 ; 0 1 0 0 0 0 ; 0 1 1 1 0 0; 0 0 0 1 0 0 ;0 0 0 1 1 1; 0 0 0 0 0 1]
-Atilda10=[1 1 0 0 0 0 0 0 0 1; 0 1 0 0 0 0 0 0 0 0; 0 1 1 1 0 0 0 0 0 0; 0 0 0 1 0 0 0 0 0 0 
- ;0 0 0 1 1 1 0 0 0 0; 0 0 0 0 0 1 0 0 0 0 ; 0 0 0 0 0 1 1 1 0 0 ; 0 0 0 0 0 0 0 1 0 0;
- 0 0 0 0 0 0 0 1 1 1; 0 0 0 0 0 0 0 0 0 1]
-Dtype=[1 1 1 1; 0 1 1 1; 0 0 1 0; 0 0 0 1]
-C11=[1 1 1 1; 0 1 0 1 ; 0 0 1 1 ; 0 0 0 1]
-star3=[1 1 1 1; 0 1 0 0; 0 0 1 0; 0 0 0 1 ]
-star4=[1 1 1 1 1 ; 0 1 0 0 0; 0 0 1 0 0; 0 0 0 1 0; 0 0 0 0 1]
-star5=[1 1 1 1 1 1; 0 1 0 0 0 0; 0 0 1 0 0 0; 0 0 0 1 0 0; 0 0 0 0 1 0; 0 0 0 0 0 1]
-star6=[1 1 1 1 1 1 1; 0 1 0 0 0 0 0; 0 0 1 0 0 0 0; 0 0 0 1 0 0 0; 0 0 0 0 1 0 0; 0 0 0 0 0 1 0; 0 0 0 0 0 0 1]
-flower3 = [1 1 1 1 1 1 1 1 1 1; 0 1 0 1 0 0 0 0 0 0; 0 0 1 1 0 0 0 0 0 0; 0 0 0 1 0 0 0 0 0 0; 
-           0 0 0 0 1 0 1 0 0 0; 0 0 0 0 0 1 1 0 0 0; 0 0 0 0 0 0 1 0 0 0;
-           0 0 0 0 0 0 0 1 0 1; 0 0 0 0 0 0 0 0 1 1; 0 0 0 0 0 0 0 0 0 1]
-#________________
-Gquiver.VisualizeGquiverOfEnd(zig3)
+# Visualize the Gabriel quiver of End(G)
 Gquiver.VisualizeGquiverOfEnd(A5)
-Gquiver.VisualizeGquiverOfEnd(C11)
-Gquiver.VisualizeGquiverOfEnd(A4)
-Gquiver.VisualizeGquiverOfEnd(Atype)
-Gquiver.VisualizeGquiverOfEnd(Dtype)
-Gquiver.VisualizeGquiverOfEnd(ComGrid)
-Gquiver.VisualizeGquiverOfEnd(Atilda4)
-Gquiver.VisualizeGquiverOfEnd(Atilda6)
-Gquiver.VisualizeGquiverOfEnd(Atilda10)
-Gquiver.VisualizeGquiverOfEnd(star4)
-Gquiver.VisualizeGquiverOfEnd(star5)
-Gquiver.VisualizeGquiverOfEnd(star3)
 
+# Compute the adjacency matrix ARQ and list all directed cycles (if any)
+ARQ, AllInt = Gquiver.GquiverOfEndRing(A5)
+cycles = Gquiver.all_directed_cycles(ARQ)
+
+# Save the Gabriel quiver using Graphviz (DOT/PNG, etc.)
+Gquiver.output(A5, "A5")
+
+
+###############################################################################
+# Example 2: A-tilde type poset on 6 elements (expected to contain cycles)
+###############################################################################
+Atilda = [1 1 0 0 1 1;
+          0 1 0 0 0 0;
+          0 1 1 0 0 0;
+          0 1 1 1 1 0;
+          0 0 0 0 1 0;
+          0 0 0 0 1 1]
+
+# Visualize the Gabriel quiver of End(G)
+Gquiver.VisualizeGquiverOfEnd(Atilda)
+
+# Detect a directed cycle and (optionally) extract one cycle
+ok, cyc = Gquiver.Isdirected_with_cycle(Atilda)
+
+# Compute ARQ and list all directed cycles (if any)
+ARQ, AllInt = Gquiver.GquiverOfEndRing(Atilda)
+cycles = Gquiver.all_directed_cycles(ARQ)
+
+# Save the Gabriel quiver using Graphviz (DOT/PNG, etc.)
+Gquiver.output(Atilda, "Atilda")
+
+
+###############################################################################
+# Other basic posets (transitive-closure matrices)
+###############################################################################
+ComGrid25 = [
+    1 1 1 1 1 1 1 1 1 1;
+    0 1 1 1 1 0 1 1 1 1;
+    0 0 1 1 1 0 0 1 1 1;
+    0 0 0 1 1 0 0 0 1 1;
+    0 0 0 0 1 0 0 0 0 1;
+    0 0 0 0 0 1 1 1 1 1;
+    0 0 0 0 0 0 1 1 1 1;
+    0 0 0 0 0 0 0 1 1 1;
+    0 0 0 0 0 0 0 0 1 1;
+    0 0 0 0 0 0 0 0 0 1
+]
+
+ComGrid33 = [
+    1 1 1 1 1 1 1 1 1;
+    0 1 1 0 1 1 0 1 1;
+    0 0 1 0 0 1 0 0 1;
+    0 0 0 1 1 1 1 1 1;
+    0 0 0 0 1 1 0 1 1;
+    0 0 0 0 0 1 0 0 1;
+    0 0 0 0 0 0 1 1 1;
+    0 0 0 0 0 0 0 1 1;
+    0 0 0 0 0 0 0 0 1
+]
+
+B12 = [1 1 1 1 1;
+       0 1 1 0 0;
+       0 0 1 0 0;
+       0 0 1 1 1;
+       0 0 1 0 1]
+
+Atilda4  = [1 1 0 1;
+            0 1 0 0;
+            0 1 1 1;
+            0 0 0 1]
+
+Atilda5  = [1 1 0 0 1;
+            0 1 0 0 0;
+            0 1 1 0 0;
+            0 1 1 1 1;
+            0 0 0 0 1]
+
+Atilda6  = [1 1 0 0 0 1;
+            0 1 0 0 0 0;
+            0 1 1 1 0 0;
+            0 0 0 1 0 0;
+            0 0 0 1 1 1;
+            0 0 0 0 0 1]
+
+Atilda10 = [1 1 0 0 0 0 0 0 0 1;
+            0 1 0 0 0 0 0 0 0 0;
+            0 1 1 1 0 0 0 0 0 0;
+            0 0 0 1 0 0 0 0 0 0;
+            0 0 0 1 1 1 0 0 0 0;
+            0 0 0 0 0 1 0 0 0 0;
+            0 0 0 0 0 1 1 1 0 0;
+            0 0 0 0 0 0 0 1 0 0;
+            0 0 0 0 0 0 0 1 1 1;
+            0 0 0 0 0 0 0 0 0 1]
